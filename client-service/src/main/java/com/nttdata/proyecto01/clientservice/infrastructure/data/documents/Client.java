@@ -21,10 +21,6 @@ public class Client {
     private String fatherSurname;
     @NotEmpty
     private String matherSurname;
-    @NotEmpty
-    private String idCustomerType;
-    @NotEmpty
-    private String idProductType;
 
 
 }

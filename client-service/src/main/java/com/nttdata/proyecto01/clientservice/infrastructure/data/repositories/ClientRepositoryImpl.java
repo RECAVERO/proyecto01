@@ -1,18 +1,13 @@
 package com.nttdata.proyecto01.clientservice.infrastructure.data.repositories;
 
 import com.nttdata.proyecto01.clientservice.domain.documents.ClientDTO;
-import com.nttdata.proyecto01.clientservice.infrastructure.data.documents.Client;
 import com.nttdata.proyecto01.clientservice.infrastructure.data.interfaces.ClientRepository;
 import com.nttdata.proyecto01.clientservice.infrastructure.data.mongodb.ClientReactiveMongoRepository;
-import org.reactivestreams.Publisher;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
+import com.nttdata.proyecto01.clientservice.utils.Convert;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.function.Function;
 @Repository
 public class ClientRepositoryImpl implements ClientRepository {
 
@@ -21,22 +16,33 @@ public class ClientRepositoryImpl implements ClientRepository {
         this._clientReactiveMongoRepository=clientReactiveMongoRepository;
     }
     @Override
-    public Flux<Client> findAll() {
-        return this._clientReactiveMongoRepository.findAll();
+    public Flux<ClientDTO> findAllClient() {
+        return this._clientReactiveMongoRepository.findAll().map(Convert::entityToDto);
     }
 
     @Override
-    public Mono<Client> save(Client client) {
-        return this._clientReactiveMongoRepository.save(client);
+    public Mono<ClientDTO> saveClient(Mono<ClientDTO> clientDTO) {
+        return clientDTO.map(Convert::DtoToEntity)
+                .flatMap(_clientReactiveMongoRepository::insert)
+                .map(Convert::entityToDto);
     }
 
     @Override
-    public Mono<Client> findById(String id) {
-        return this._clientReactiveMongoRepository.findById(id);
+    public Mono<ClientDTO> findByIdClient(String id) {
+        return this._clientReactiveMongoRepository.findById(id).map(Convert::entityToDto);
     }
 
     @Override
-    public Mono<Void> deleteById(String id) {
+    public Mono<ClientDTO> updateClient(Mono<ClientDTO> clientDTO, String id) {
+        return  _clientReactiveMongoRepository.findById(id)
+                .flatMap(p->clientDTO.map(Convert::DtoToEntity)
+                        .doOnNext(e->e.setId(id)))
+                        .flatMap( _clientReactiveMongoRepository::save)
+                        .map(Convert::entityToDto);
+    }
+
+    @Override
+    public Mono<Void> deleteByIdClient(String id) {
         return this._clientReactiveMongoRepository.deleteById(id);
     }
 }

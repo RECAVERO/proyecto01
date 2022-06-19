@@ -6,10 +6,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ClientRepository {
-    Flux<Client> findAll();
-    Mono<Client> save(Client client);
-    Mono<Client> findById(String id);
+    Flux<ClientDTO> findAllClient();
+    Mono<ClientDTO> saveClient(Mono<ClientDTO> clientDTO);
+    Mono<ClientDTO> findByIdClient(String id);
 
-    Mono<Void> deleteById(String id);
+    Mono<ClientDTO> updateClient(Mono<ClientDTO> clientDTO,String id);
+    Mono<Void> deleteByIdClient(String id);
 
 }
