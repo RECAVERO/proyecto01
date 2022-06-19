@@ -3,4 +3,4 @@ server:
 eureka:
     client:
         fetch-registry: false
-        regiter-with-eureka: false
+        register-with-eureka: false
