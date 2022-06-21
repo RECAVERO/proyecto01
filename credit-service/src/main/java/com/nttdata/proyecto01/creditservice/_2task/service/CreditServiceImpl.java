@@ -4,12 +4,16 @@ import com.nttdata.proyecto01.creditservice._2task.interfaces.CreditService;
 import com.nttdata.proyecto01.creditservice._3domain.contract.CreditRepository;
 import com.nttdata.proyecto01.creditservice._3domain.model.CreditDTO;
 import com.nttdata.proyecto01.creditservice._5util.convert.Convert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 @Service
 public class CreditServiceImpl implements CreditService {
     private final CreditRepository _creditRepository;
+
 
     public CreditServiceImpl(CreditRepository creditRepository) {
         _creditRepository = creditRepository;
@@ -31,9 +35,10 @@ public class CreditServiceImpl implements CreditService {
     }
 
     @Override
-    public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String id) {
-        return _creditRepository.updateCredit(creditDTOMono,id);
+    public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String idclient,String idproduct) {
+        return _creditRepository.updateCredit(creditDTOMono,idclient,idproduct);
     }
+
 
     @Override
     public Mono<Void> deleteCreditById(String id) {
@@ -50,10 +55,11 @@ public class CreditServiceImpl implements CreditService {
         return _creditRepository.getListCreditByIdClientAndIdProduct(idClient,idProduct);
     }
 
-   /* @Override
-    public Flux<CreditDTO> getCreditByIdClient(String idclient) {
-        return _creditRepository.getCreditByIdClient(idclient);
+    @Override
+    public Mono<CreditDTO> getListCreditByIdClientAndIdTypeAndIdProduct( String idClient, String idType, String idProduct) {
+        return _creditRepository.getListCreditByIdClientAndIdTypeAndIdProduct(idClient,idType,idProduct);
     }
 
-    */
+
+
 }

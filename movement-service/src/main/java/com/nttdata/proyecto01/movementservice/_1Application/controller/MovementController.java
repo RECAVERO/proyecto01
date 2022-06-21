@@ -23,22 +23,27 @@ public class MovementController {
     public Mono<MovementDTO> getMovementById(@PathVariable String id){
         return _movementService.getMovementById(id);
     }
-    @PostMapping
-    public Mono<MovementDTO> saveMovement(@RequestBody Mono<MovementDTO> movementDTOMono){
+    @PostMapping("/recharge")
+    public Mono<MovementDTO> rechargeMovement(@RequestBody Mono<MovementDTO> movementDTOMono){
+        return _movementService.saveMovement(movementDTOMono);
+    }
+
+    @PostMapping("/withdrawal")
+    public Mono<MovementDTO> withdrawalMovement(@RequestBody Mono<MovementDTO> movementDTOMono){
         return _movementService.saveMovement(movementDTOMono);
     }
     @PutMapping("/{id}")
     public Mono<MovementDTO> updateMovement(@RequestBody Mono<MovementDTO> movementDTOMono,@PathVariable String id){
-        return _movementService.saveMovement(movementDTOMono);
+        return _movementService.updateMovement(movementDTOMono,id);
     }
 
     @DeleteMapping("/{id}")
     public Mono<Void> deleteMovementById(@PathVariable String id){
         return _movementService.deleteMovementById(id);
     }
-    @GetMapping("/operation/{idclient}/{idproduct}")
-    public Flux<CreditDTO> getListProducts(@PathVariable String idclient,@PathVariable String idproduct){
-        return _movementService.getListCredit(idclient,idproduct);
+    @GetMapping("/operation/{idclient}/{idtype}/{idproduct}")
+    public Mono<CreditDTO> getListProducts(@PathVariable String idclient,@PathVariable String idtype,@PathVariable String idproduct){
+        return _movementService.getListCredit(idclient,idtype,idproduct);
     }
 
 

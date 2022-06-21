@@ -9,5 +9,4 @@ import reactor.core.publisher.Flux;
 
 public interface MovementRepositoryMongoDB extends ReactiveMongoRepository<Movement,String> {
 
-    Flux<CreditDTO> findIdClientAndIdAccount(String idClient, String idAccount);
 }

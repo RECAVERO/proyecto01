@@ -28,9 +28,11 @@ public class CreditController {
     public Mono<CreditDTO> saveCredit(@RequestBody Mono<CreditDTO> creditDTOMono){
         return this._creditService.saveCredit(creditDTOMono);
     }
+
+
     @PutMapping("/{id}")
-    public Mono<CreditDTO> updateCredit(@RequestBody Mono<CreditDTO> creditDTOMono,@PathVariable("id") String id){
-        return this._creditService.updateCredit(creditDTOMono,id);
+    public Mono<CreditDTO> updateCredit(@RequestBody Mono<CreditDTO> creditDTOMono,@PathVariable String id){
+        return this._creditService.updateCredit(creditDTOMono,id,id);
     }
     @DeleteMapping("/{id}")
     public Mono<Void> deleteCreditById(@PathVariable("id") String id){
@@ -45,10 +47,9 @@ public class CreditController {
         return this._creditService.getListCreditByIdClientAndIdProduct(idclient,idproduct);
     }
 
-
-    /*@GetMapping("/search/{id}")
-    public Flux<CreditDTO> getCreditByIdClient(@PathVariable("id") String id){
-        return this._creditService.getCreditByIdClient(id);
+    @GetMapping("/products/{idclient}/{idtype}/{idproduct}")
+    public Mono<CreditDTO> getListByIdClient(@PathVariable String idclient,@PathVariable String idtype,@PathVariable String idproduct){
+        return this._creditService.getListCreditByIdClientAndIdTypeAndIdProduct(idclient,idtype,idproduct);
     }
-     */
+
 }

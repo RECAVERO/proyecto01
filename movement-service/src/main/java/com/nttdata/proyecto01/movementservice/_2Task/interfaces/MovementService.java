@@ -11,5 +11,5 @@ public interface MovementService {
     Mono<MovementDTO> saveMovement(Mono<MovementDTO> movementDTOMono);
     Mono<MovementDTO> updateMovement(Mono<MovementDTO> movementDTOMono, String id);
     Mono<Void> deleteMovementById(String id);
-    Flux<CreditDTO> getListCredit(String idClient, String idProduct);
+    Mono<CreditDTO> getListCredit(String idClient,String idType, String idProduct);
 }

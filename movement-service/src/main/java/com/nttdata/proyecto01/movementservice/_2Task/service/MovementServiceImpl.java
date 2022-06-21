@@ -44,10 +44,13 @@ public class MovementServiceImpl implements MovementService {
     }
 
     @Override
-    public Flux<CreditDTO> getListCredit(String idClient, String idProduct) {
-        Flux<CreditDTO> creditDTOFlux=_webClientBuilder.build()
-                .get().uri("http://localhost:9004/credit/products/"+idClient+"/"+idProduct)
-                .retrieve().bodyToFlux(CreditDTO.class);
-        return creditDTOFlux;
+    public Mono<CreditDTO> getListCredit(String idClient,String idType, String idProduct) {
+        Mono<CreditDTO> creditDTOMono=_webClientBuilder.build()
+                .get().uri("http://localhost:9004/credit/products/"+idClient+"/"+idType + "/"+idProduct)
+                .retrieve().bodyToMono(CreditDTO.class);
+
+
+
+        return creditDTOMono;
     }
 }

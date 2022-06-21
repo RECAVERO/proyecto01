@@ -1,16 +1,19 @@
 package com.nttdata.proyecto01.creditservice._4infraestructure.data.repository;
 
+import com.nttdata.proyecto01.creditservice._2task.service.CreditServiceImpl;
 import com.nttdata.proyecto01.creditservice._3domain.contract.CreditRepository;
 import com.nttdata.proyecto01.creditservice._3domain.model.CreditDTO;
 import com.nttdata.proyecto01.creditservice._4infraestructure.data.mongodb.CreditRepositoryMongoDB;
 import com.nttdata.proyecto01.creditservice._5util.convert.Convert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 @Repository
 public class CreditRepositoryImpl implements CreditRepository {
     private final CreditRepositoryMongoDB creditRepositoryMongoDB;
-
+    private static final Logger log= LoggerFactory.getLogger(CreditRepositoryImpl.class);
     public CreditRepositoryImpl(CreditRepositoryMongoDB creditRepositoryMongoDB) {
         this.creditRepositoryMongoDB = creditRepositoryMongoDB;
     }
@@ -33,10 +36,21 @@ public class CreditRepositoryImpl implements CreditRepository {
     }
 
     @Override
-    public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String id) {
+    public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String idclient,String idproduct) {
+        return creditRepositoryMongoDB.findById(idclient)
+                .flatMap(p -> creditDTOMono.map(Convert::DtoToEntity)
+                        .doOnNext(e ->
+                                e.setId(idclient)
+                        ))
+                .flatMap(creditRepositoryMongoDB::save)
+                .map(Convert::entityToDto);
+    }
+    private Mono<CreditDTO> updateCreditLocal(Mono<CreditDTO> creditDTOMono, String id) {
         return creditRepositoryMongoDB.findById(id)
                 .flatMap(p -> creditDTOMono.map(Convert::DtoToEntity)
-                        .doOnNext(e -> e.setId(id)))
+                        .doOnNext(e ->
+                                e.setId(id)
+                        ))
                 .flatMap(creditRepositoryMongoDB::save)
                 .map(Convert::entityToDto);
     }
@@ -55,11 +69,18 @@ public class CreditRepositoryImpl implements CreditRepository {
     public Flux<CreditDTO> getListCreditByIdClientAndIdProduct(String idClient, String idProduct) {
         return creditRepositoryMongoDB.findByIdClientAndIdProduct(idClient,idProduct);
     }
+   @Override
+    public Mono<CreditDTO> getListCreditByIdClientAndIdTypeAndIdProduct(String idClient, String idType, String idProduct) {
+       Mono<CreditDTO> creditDTOMono= creditRepositoryMongoDB.findByIdClientAndIdTypeAndIdProduct(idClient,idType,idProduct);
 
-    /*@Override
-    public Flux<CreditDTO> getCreditByIdClient(String idclient) {
-        return this.creditRepositoryMongoDB.findByIdClient(idclient);
+       creditDTOMono.flatMap(c->
+                   creditDTOMono.map(Convert::DtoToEntity)
+       ).doOnNext(e->{
+                   e.setId(e.getId());
+       }).flatMap(creditRepositoryMongoDB::save)
+         .map(Convert::entityToDto);
+
+        return creditDTOMono;
     }
 
-     */
 }
