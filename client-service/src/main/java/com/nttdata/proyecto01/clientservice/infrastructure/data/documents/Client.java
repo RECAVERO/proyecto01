@@ -16,11 +16,7 @@ public class Client {
     @Id
     private String id;
     @NotEmpty
+    private String idClient;
+    @NotEmpty
     private String names;
-    @NotEmpty
-    private String fatherSurname;
-    @NotEmpty
-    private String matherSurname;
-
-
 }

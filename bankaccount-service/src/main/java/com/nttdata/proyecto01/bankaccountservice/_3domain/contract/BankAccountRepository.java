@@ -11,5 +11,5 @@ public interface BankAccountRepository {
 
     Mono<BankAccountDTO> updateBankAccount(Mono<BankAccountDTO> bankAccountDTOMono, String id);
     Mono<Void> deleteBankAccountById(String id);
-    Flux<BankAccountDTO> getBankAccountByIdClient(String idclient);
+    //Flux<BankAccountDTO> getBankAccountByIdClient(String idclient);
 }

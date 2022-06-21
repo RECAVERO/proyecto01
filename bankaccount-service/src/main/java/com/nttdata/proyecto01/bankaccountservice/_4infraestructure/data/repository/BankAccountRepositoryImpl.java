@@ -48,8 +48,8 @@ public class BankAccountRepositoryImpl implements BankAccountRepository {
         return _bankAccountRepositoryMongoDb.deleteById(id);
     }
 
-    @Override
+    /*@Override
     public Flux<BankAccountDTO> getBankAccountByIdClient(String idAccount) {
         return this._bankAccountRepositoryMongoDb.findByIdClient(idAccount);
-    }
+    }*/
 }

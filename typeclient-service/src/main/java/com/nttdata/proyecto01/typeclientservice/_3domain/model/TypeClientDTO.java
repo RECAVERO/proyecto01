@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TypeClientDTO {
     private String id;
+    private String idType;
     private String typeClient;
-    private String idClient;
+
 }

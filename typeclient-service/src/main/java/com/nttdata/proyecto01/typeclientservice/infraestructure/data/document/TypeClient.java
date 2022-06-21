@@ -13,6 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class TypeClient {
 @Id
     private String id;
+    private String idType;
     private String typeClient;
-    private String idClient;
 }

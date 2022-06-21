@@ -39,8 +39,10 @@ public class BankAccountServiceImpl implements BankAccountService {
         return _bankAccountRepository.deleteBankAccountById(id);
     }
 
-    @Override
+   /* @Override
     public Flux<BankAccountDTO> getBankAccountByIdClient(String idClient) {
         return this._bankAccountRepository.getBankAccountByIdClient(idClient);
     }
+
+    */
 }

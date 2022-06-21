@@ -11,5 +11,5 @@ public interface TypeClientRepository {
     Mono<TypeClientDTO> updateTypeClient(Mono<TypeClientDTO> typeClientDtoMono, String id);
     Mono<Void> deleteTypeClientById(String id);
 
-    Flux<TypeClientDTO> getTypeClientByIdClient(String idclient);
+    //Flux<TypeClientDTO> getTypeClientByIdClient(String idclient);
 }

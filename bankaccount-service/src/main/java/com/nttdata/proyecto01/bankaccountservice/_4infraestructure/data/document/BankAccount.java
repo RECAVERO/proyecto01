@@ -13,9 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class BankAccount {
     @Id
     private String id;
+    private String idAccount;
     private String typeAccount;
-    private String numberAccount;
-    private String idClient;
-    private String idTypeClient;
 
 }

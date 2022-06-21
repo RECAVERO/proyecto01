@@ -7,5 +7,5 @@ import reactor.core.publisher.Flux;
 
 
 public interface TypeClientRepositoryMongoDB extends ReactiveMongoRepository<TypeClient,String> {
-    Flux<TypeClientDTO> findByIdClient(String id);
+    //Flux<TypeClientDTO> findByIdClient(String id);
 }

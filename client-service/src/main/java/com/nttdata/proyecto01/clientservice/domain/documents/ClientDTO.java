@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class ClientDTO {
     private String id;
+    private String idClient;
     private String names;
-    private String FatherSurname;
-    private String MatherSurname;
 }

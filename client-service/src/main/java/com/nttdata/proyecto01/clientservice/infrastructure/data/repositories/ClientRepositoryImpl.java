@@ -1,6 +1,7 @@
 package com.nttdata.proyecto01.clientservice.infrastructure.data.repositories;
 
 import com.nttdata.proyecto01.clientservice.domain.documents.ClientDTO;
+import com.nttdata.proyecto01.clientservice.domain.documents.TypeClientDTO;
 import com.nttdata.proyecto01.clientservice.infrastructure.data.interfaces.ClientRepository;
 import com.nttdata.proyecto01.clientservice.infrastructure.data.mongodb.ClientReactiveMongoRepository;
 import com.nttdata.proyecto01.clientservice.utils.Convert;
@@ -45,4 +46,5 @@ public class ClientRepositoryImpl implements ClientRepository {
     public Mono<Void> deleteByIdClient(String id) {
         return this._clientReactiveMongoRepository.deleteById(id);
     }
+
 }

@@ -7,4 +7,4 @@ spring:
       uri: http://localhost:8081
   data:
     mongodb:
-      uri: mongodb://localhost:27017/banco
+      uri: mongodb://localhost:27017/bancoreynaldo

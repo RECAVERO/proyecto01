@@ -41,7 +41,19 @@ public class CreditServiceImpl implements CreditService {
     }
 
     @Override
+    public Flux<CreditDTO> getListByIdClient(String idClient) {
+        return _creditRepository.getListByIdClient(idClient);
+    }
+
+    @Override
+    public Flux<CreditDTO> getListCreditByIdClientAndIdProduct(String idClient, String idProduct) {
+        return _creditRepository.getListCreditByIdClientAndIdProduct(idClient,idProduct);
+    }
+
+   /* @Override
     public Flux<CreditDTO> getCreditByIdClient(String idclient) {
         return _creditRepository.getCreditByIdClient(idclient);
     }
+
+    */
 }

@@ -2,7 +2,6 @@ package com.nttdata.proyecto01.typeclientservice._1application.rest;
 
 import com.nttdata.proyecto01.typeclientservice._2task.interfaces.TypeClientService;
 import com.nttdata.proyecto01.typeclientservice._3domain.model.TypeClientDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -36,9 +35,11 @@ public class TypeClienteController {
     public Mono<Void> deleteTypeClient(@PathVariable("id") String id){
         return this._typeClientService.deleteTypeClientById(id);
     }
-    @GetMapping("/search/{id}")
+   /* @GetMapping("/search/{id}")
     public Flux<TypeClientDTO> getListTypeClientByIdClient(@PathVariable("id") String id){
         return this._typeClientService.getTypeClientByIdClient(id);
     }
+
+    */
 
 }

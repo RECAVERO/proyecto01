@@ -37,8 +37,10 @@ public class BankAccountController {
     public Mono<Void> deleteBankAccount(@PathVariable("id") String id){
         return this._bankAccountService.deleteBankAccountById(id);
     }
-    @GetMapping("/search/{id}")
+    /*@GetMapping("/search/{id}")
     public Flux<BankAccountDTO> getListBankAccountByIdClient(@PathVariable("id") String id){
         return this._bankAccountService.getBankAccountByIdClient(id);
     }
+
+     */
 }

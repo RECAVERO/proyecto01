@@ -11,5 +11,7 @@ public interface CreditService {
 
     Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String id);
     Mono<Void> deleteCreditById(String id);
-    Flux<CreditDTO> getCreditByIdClient(String idclient);
+    Flux<CreditDTO> getListByIdClient(String idClient);
+    Flux<CreditDTO> getListCreditByIdClientAndIdProduct(String idClient,String idProduct);
+    //Flux<CreditDTO> getCreditByIdClient(String idclient);
 }

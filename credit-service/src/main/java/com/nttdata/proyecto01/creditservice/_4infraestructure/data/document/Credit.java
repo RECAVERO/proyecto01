@@ -13,7 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Credit {
     @Id
     private String id;
-    private String typeCredit;
-    private String numberAccountCredit;
     private String idClient;
+    private String idType;
+    private String idProduct;
+    private float balance;
 }

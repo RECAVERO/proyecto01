@@ -1,10 +1,10 @@
 package com.nttdata.proyecto01.clientservice.application.rest;
 
+import com.nttdata.proyecto01.clientservice.domain.documents.BankAccountDTO;
 import com.nttdata.proyecto01.clientservice.domain.documents.ClientDTO;
+import com.nttdata.proyecto01.clientservice.domain.documents.ProductDTO;
 import com.nttdata.proyecto01.clientservice.domain.documents.TypeClientDTO;
 import com.nttdata.proyecto01.clientservice.domain.interfaces.ClientService;
-import com.nttdata.proyecto01.clientservice.infrastructure.data.documents.Client;
-import com.nttdata.proyecto01.clientservice.utils.Convert;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -40,9 +40,12 @@ public class ClientController {
     public Mono<ClientDTO> updateClient(@RequestBody Mono<ClientDTO> clientDTO,@PathVariable String id){
         return this._clientService.updateClient(clientDTO,id);
     }
-    @GetMapping("/allProducts/{id}")
+    @GetMapping("/products/{id}")
     public Map<String,Object> getListClientAllProducts(@PathVariable String id){
-        return this._clientService.getClientAndProducts(id);
+        return this._clientService.getListaProducts(id);
     }
+
+
+
 
 }

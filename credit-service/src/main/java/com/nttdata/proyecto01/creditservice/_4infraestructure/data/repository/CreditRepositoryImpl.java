@@ -47,7 +47,19 @@ public class CreditRepositoryImpl implements CreditRepository {
     }
 
     @Override
+    public Flux<CreditDTO> getListByIdClient(String idClient) {
+        return creditRepositoryMongoDB.findByIdClient(idClient);
+    }
+
+    @Override
+    public Flux<CreditDTO> getListCreditByIdClientAndIdProduct(String idClient, String idProduct) {
+        return creditRepositoryMongoDB.findByIdClientAndIdProduct(idClient,idProduct);
+    }
+
+    /*@Override
     public Flux<CreditDTO> getCreditByIdClient(String idclient) {
         return this.creditRepositoryMongoDB.findByIdClient(idclient);
     }
+
+     */
 }

@@ -46,8 +46,10 @@ public class TypeClientRepositoryImpl implements TypeClientRepository {
         return _typeClientRepositoryMongoDB.deleteById(id);
     }
 
-    @Override
+   /* @Override
     public Flux<TypeClientDTO> getTypeClientByIdClient(String idclient) {
         return this._typeClientRepositoryMongoDB.findByIdClient(idclient);
     }
+
+    */
 }

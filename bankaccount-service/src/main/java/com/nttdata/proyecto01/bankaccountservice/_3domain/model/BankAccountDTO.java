@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BankAccountDTO {
     private String id;
+    private String idAccount;
     private String typeAccount;
-    private String numberAccount;
-    private String idClient;
-    private String idTypeClient;
 }

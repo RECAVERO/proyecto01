@@ -36,8 +36,19 @@ public class CreditController {
     public Mono<Void> deleteCreditById(@PathVariable("id") String id){
         return this._creditService.deleteCreditById(id);
     }
-    @GetMapping("/search/{id}")
+    @GetMapping("/operation/{id}")
+    public Flux<CreditDTO> getListByIdClient(@PathVariable("id") String id){
+        return this._creditService.getListByIdClient(id);
+    }
+    @GetMapping("/products/{idclient}/{idproduct}")
+    public Flux<CreditDTO> getListByIdClient(@PathVariable("idclient") String idclient,@PathVariable("idproduct") String idproduct){
+        return this._creditService.getListCreditByIdClientAndIdProduct(idclient,idproduct);
+    }
+
+
+    /*@GetMapping("/search/{id}")
     public Flux<CreditDTO> getCreditByIdClient(@PathVariable("id") String id){
         return this._creditService.getCreditByIdClient(id);
     }
+     */
 }

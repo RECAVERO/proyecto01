@@ -6,5 +6,7 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 
 public interface CreditRepositoryMongoDB extends ReactiveMongoRepository<Credit,String> {
-    Flux<CreditDTO> findByIdClient(String idclient);
+    Flux<CreditDTO> findByIdClient(String idClient);
+
+    Flux<CreditDTO> findByIdClientAndIdProduct(String idClient, String idProduct);
 }

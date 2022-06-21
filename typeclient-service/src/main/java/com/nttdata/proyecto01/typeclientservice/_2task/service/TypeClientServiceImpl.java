@@ -1,4 +1,4 @@
-package com.nttdata.proyecto01.typeclientservice._3domain.service;
+package com.nttdata.proyecto01.typeclientservice._2task.service;
 
 import com.nttdata.proyecto01.typeclientservice._2task.interfaces.TypeClientService;
 import com.nttdata.proyecto01.typeclientservice._3domain.contract.TypeClientRepository;
@@ -39,8 +39,10 @@ public class TypeClientServiceImpl implements TypeClientService {
         return this._typeClientRepository.deleteTypeClientById(id);
     }
 
-    @Override
+   /* @Override
     public Flux<TypeClientDTO> getTypeClientByIdClient(String idclient) {
         return this._typeClientRepository.getTypeClientByIdClient(idclient);
     }
+
+    */
 }
