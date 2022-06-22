@@ -11,6 +11,9 @@ eureka:
 spring:
   cloud:
     gateway:
+        discovery:
+          locator:
+            enabled: true
         routes:
           - id: client-service
             uri: lb://client-service
@@ -32,3 +35,6 @@ spring:
             uri: lb://movement-service
             predicates:
               - Path=/Movement/**
+    loadbalancer:
+        ribbon:
+          enabled: false
