@@ -11,9 +11,6 @@ eureka:
 spring:
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
         routes:
           - id: client-service
             uri: lb://client-service
