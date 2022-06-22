@@ -8,4 +8,4 @@ eureka:
           default-zone: http://localhost:8761/eureka
     instance:
         prefer-ip-address: true
-        instance-id: 10.150.16.187:9001
+        instance-id: localhost:9001
