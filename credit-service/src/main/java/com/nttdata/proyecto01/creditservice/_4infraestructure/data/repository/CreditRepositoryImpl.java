@@ -71,16 +71,18 @@ public class CreditRepositoryImpl implements CreditRepository {
     }
    @Override
     public Mono<CreditDTO> getListCreditByIdClientAndIdTypeAndIdProduct(String idClient, String idType, String idProduct) {
-       Mono<CreditDTO> creditDTOMono= creditRepositoryMongoDB.findByIdClientAndIdTypeAndIdProduct(idClient,idType,idProduct);
 
-       creditDTOMono.flatMap(c->
+
+      /* creditDTOMono.flatMap(c->
                    creditDTOMono.map(Convert::DtoToEntity)
        ).doOnNext(e->{
                    e.setId(e.getId());
        }).flatMap(creditRepositoryMongoDB::save)
          .map(Convert::entityToDto);
 
-        return creditDTOMono;
+       */
+
+        return creditRepositoryMongoDB.findByIdClientAndIdTypeAndIdProduct(idClient,idType,idProduct);
     }
 
 }

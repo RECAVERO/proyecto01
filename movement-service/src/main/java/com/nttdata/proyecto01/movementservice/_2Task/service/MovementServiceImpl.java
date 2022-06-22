@@ -48,7 +48,9 @@ public class MovementServiceImpl implements MovementService {
         Mono<CreditDTO> creditDTOMono=_webClientBuilder.build()
                 .get().uri("http://localhost:9004/credit/products/"+idClient+"/"+idType + "/"+idProduct)
                 .retrieve().bodyToMono(CreditDTO.class);
-
+        creditDTOMono.subscribe(c->{
+            System.out.println("Codigo"+c.getId() +"Client" + c.getIdClient()+"type"+c.getIdType() +"product" + c.getIdProduct());
+        });
 
 
         return creditDTOMono;
