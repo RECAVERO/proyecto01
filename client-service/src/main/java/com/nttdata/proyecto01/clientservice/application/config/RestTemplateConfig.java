@@ -14,7 +14,7 @@ public class RestTemplateConfig {
         return new RestTemplate();
     }
     @Bean
-    //@LoadBalanced
+    @LoadBalanced
     public WebClient.Builder getWebClientBuilder(){
         return WebClient.builder();
     }
