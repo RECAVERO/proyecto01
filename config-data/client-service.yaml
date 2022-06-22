@@ -8,4 +8,4 @@ eureka:
           default-zone: http://localhost:8761/eureka
     instance:
         prefer-ip-address: true
-        ip-address: ${spring.application.name}:10.150.16.187:9001
+        ip-address: 10.150.16.187:9001
