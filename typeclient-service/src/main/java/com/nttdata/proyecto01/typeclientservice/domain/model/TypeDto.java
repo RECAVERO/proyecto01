@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TypeDto {
-    private String id;
-    private String idType;
-    private String typeClient;
+  private String id;
+  private String idType;
+  private String typeClient;
 
 }

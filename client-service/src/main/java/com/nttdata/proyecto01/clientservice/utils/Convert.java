@@ -5,16 +5,15 @@ import com.nttdata.proyecto01.clientservice.infrastructure.data.documents.Client
 import org.springframework.beans.BeanUtils;
 
 public class Convert {
-    //funcion que convierte un dto a entity
-    public static ClientDto entityToDto(Client client){
-        ClientDto clientDTO=new ClientDto();
-        BeanUtils.copyProperties(client,clientDTO);
-        return clientDTO;
-    }
-    //funcion que convierte un entity a dto
-    public static Client DtoToEntity(ClientDto clientDTO){
-        Client client=new Client();
-        BeanUtils.copyProperties(clientDTO,client);
-        return client;
-    }
+  public static ClientDto entityToDto(Client client) {
+    ClientDto clientDto = new ClientDto();
+    BeanUtils.copyProperties(client, clientDto);
+    return clientDto;
+  }
+
+  public static Client dtoToEntity(ClientDto clientDto) {
+    Client client = new Client();
+    BeanUtils.copyProperties(clientDto, client);
+    return client;
+  }
 }

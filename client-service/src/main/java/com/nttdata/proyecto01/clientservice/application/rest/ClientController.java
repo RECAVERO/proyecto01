@@ -2,7 +2,10 @@ package com.nttdata.proyecto01.clientservice.application.rest;
 
 import com.nttdata.proyecto01.clientservice.domain.interfaces.ClientService;
 import com.nttdata.proyecto01.clientservice.domain.models.ClientDto;
+import com.nttdata.proyecto01.clientservice.domain.models.MessageDto;
+import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +32,26 @@ public class ClientController {
   }
 
   @GetMapping("/{id}")
-  public Mono<ClientDto> getListClient(@PathVariable String id) {
-    return this.clientService.findByIdClient(id);
-  }
-
-  @GetMapping("/products/{id}")
-  public Map<String, Object> getListClientAllProducts(@PathVariable String id) {
-    return this.clientService.getListaProducts(id);
+  public Mono<Map<String, Object>> getListClient(@PathVariable String id) {
+    Map<String, Object> result = new HashMap<>();
+    return this.clientService.findByIdClient(id).flatMap(cli -> {
+      MessageDto messageDto = new MessageDto();
+      ClientDto client = new ClientDto();
+      if (cli.getId() == null) {
+        messageDto.setStatus(HttpStatus.NOT_FOUND.toString());
+        messageDto.setMsg("there is no record");
+        result.put("Data", messageDto);
+      } else {
+        messageDto.setStatus(HttpStatus.CREATED.toString());
+        messageDto.setMsg("successful query");
+        client.setId(cli.getId());
+        client.setIdClient(cli.getIdClient());
+        client.setNames(cli.getNames());
+        messageDto.setClient(client);
+        result.put("Data", messageDto);
+      }
+      return Mono.just(result);
+    });
   }
 
   @PostMapping

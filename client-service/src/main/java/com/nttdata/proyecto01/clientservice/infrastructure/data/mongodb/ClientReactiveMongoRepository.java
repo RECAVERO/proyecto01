@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientReactiveMongoRepository extends ReactiveMongoRepository<Client,String> {
+public interface ClientReactiveMongoRepository extends ReactiveMongoRepository<Client, String> {
 
 }
