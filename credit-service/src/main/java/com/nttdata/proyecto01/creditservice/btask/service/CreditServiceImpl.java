@@ -34,9 +34,8 @@ public class CreditServiceImpl implements CreditService {
 
   @Override
   public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto,
-                                      String idclient,
-                                      String idproduct) {
-    return creditRepository.updateCredit(creditDto, idclient, idproduct);
+                                      String id ) {
+    return creditRepository.updateCredit(creditDto, id);
   }
 
 
@@ -62,6 +61,10 @@ public class CreditServiceImpl implements CreditService {
     return creditRepository.getListCreditByIdClientAndIdTypeAndIdProduct(idClient, idType, idProduct);
   }
 
+  @Override
+  public Mono<CreditDTO> getListCreditAll(String idClient, String idType, String idProduct, String numberCuent) {
+    return creditRepository.getListCreditAll(idClient,idType,idProduct,numberCuent);
+  }
 
 
 }

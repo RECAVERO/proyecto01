@@ -9,16 +9,12 @@ public interface CreditRepository {
     Mono<CreditDTO> getCreditById(String id);
     Mono<CreditDTO> saveCredit(Mono<CreditDTO> creditDTOMono);
 
-    Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String idclient,String idproduct);
+    Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDTOMono, String id);
     Mono<Void> deleteCreditById(String id);
 
     Flux<CreditDTO> getListByIdClient(String idClient);
     Flux<CreditDTO> getListCreditByIdClientAndIdProduct(String idClient,String idProduct);
     Mono<CreditDTO> getListCreditByIdClientAndIdTypeAndIdProduct( String idClient, String idType, String idProduct);
 
-
-
-    //Flux<CreditDTO> getCreditByIdClient(String idclient);
-
-
+    Mono<CreditDTO> getListCreditAll(String idClient, String idType, String idProduct, String numberCuent);
 }

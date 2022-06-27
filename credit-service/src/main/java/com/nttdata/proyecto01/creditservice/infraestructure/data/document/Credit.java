@@ -16,5 +16,6 @@ public class Credit {
     private String idClient;
     private String idType;
     private String idProduct;
+    private String numberCuent;
     private float balance;
 }

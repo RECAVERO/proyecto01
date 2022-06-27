@@ -13,7 +13,7 @@ public interface CreditService {
   Mono<CreditDTO> saveCredit(Mono<CreditDTO> creditDto);
 
 
-  Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto, String idclient, String idproduct);
+  Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto, String id);
 
   Mono<Void> deleteCreditById(String id);
 
@@ -22,5 +22,7 @@ public interface CreditService {
   Flux<CreditDTO> getListCreditByIdClientAndIdProduct(String idClient, String idProduct);
 
   Mono<CreditDTO> getListCreditByIdClientAndIdTypeAndIdProduct(String idClient, String idType, String idProduct);
+
+  Mono<CreditDTO> getListCreditAll(String idClient, String idType, String idProduct, String numberCuent);
 
 }

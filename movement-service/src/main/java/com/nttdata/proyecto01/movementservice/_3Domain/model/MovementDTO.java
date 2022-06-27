@@ -12,6 +12,7 @@ public class MovementDTO {
     private String operation;
     private String idClient;
     private String idType;
-    private String idAccount;
+    private String idProduct;
+    private String numberCuent;
     private float amount;
 }

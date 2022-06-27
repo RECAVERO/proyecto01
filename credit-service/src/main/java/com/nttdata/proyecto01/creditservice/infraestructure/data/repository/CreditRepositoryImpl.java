@@ -37,11 +37,11 @@ public class CreditRepositoryImpl implements CreditRepository {
   }
 
   @Override
-  public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto, String idClient, String idProduct) {
-    return creditRepository.findById(idClient)
+  public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto, String id) {
+    return creditRepository.findById(id)
         .flatMap(p -> creditDto.map(Convert::DtoToEntity)
             .doOnNext(e ->
-                e.setId(idClient)
+                e.setId(id)
             ))
         .flatMap(creditRepository::save)
         .map(Convert::entityToDto);
@@ -78,6 +78,11 @@ public class CreditRepositoryImpl implements CreditRepository {
 
     return creditRepository.findByIdClientAndIdTypeAndIdProduct(idClient, idType, idProduct);
 
+  }
+
+  @Override
+  public Mono<CreditDTO> getListCreditAll(String idClient, String idType, String idProduct, String numberCuent) {
+    return this.creditRepository.findByIdClientAndIdTypeAndIdProductAndNumberCuent(idClient, idType, idProduct, numberCuent).defaultIfEmpty(new CreditDTO());
   }
 
 }

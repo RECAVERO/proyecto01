@@ -13,4 +13,5 @@ public interface CreditRepositoryMongoDB extends ReactiveMongoRepository<Credit,
 
     Mono<CreditDTO> findByIdClientAndIdTypeAndIdProduct(String idClient, String idType, String idProduct);
 
+    Mono<CreditDTO> findByIdClientAndIdTypeAndIdProductAndNumberCuent(String idClient, String idType, String idProduct, String numberCuent);
 }

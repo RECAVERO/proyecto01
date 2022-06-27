@@ -40,9 +40,25 @@ public class CreditController {
   @PutMapping("/{id}")
   public Mono<CreditDTO> updateCredit(@RequestBody Mono<CreditDTO> creditDto,
                                       @PathVariable String id) {
-    return this.creditService.updateCredit(creditDto, id, id);
+    return this.creditService.updateCredit(creditDto, id);
   }
+  @PostMapping("/deposit")
+  public Mono<CreditDTO> updateCredit(@RequestBody Mono<CreditDTO> creditDto) {
+    return creditDto.flatMap(credit -> {
+      return this.creditService.getCreditById(credit.getId()).flatMap(c->{
+          CreditDTO cre=new CreditDTO();
+          cre.setId(credit.getId());
+          cre.setIdClient(credit.getIdClient());
+          cre.setIdType(credit.getIdType());
+          cre.setIdProduct(credit.getIdProduct());
+          cre.setNumberCuent(credit.getNumberCuent());
+          cre.setBalance(c.getBalance() + credit.getBalance());
+          System.out.println(c.getBalance() + credit.getBalance());
+        return this.creditService.updateCredit(Mono.just(cre), credit.getId());
+      });
 
+    });
+  }
   @DeleteMapping("/{id}")
   public Mono<Void> deleteCreditById(@PathVariable("id") String id) {
     return this.creditService.deleteCreditById(id);
@@ -64,6 +80,14 @@ public class CreditController {
                                            @PathVariable String idtype,
                                            @PathVariable String idproduct) {
     return this.creditService.getListCreditByIdClientAndIdTypeAndIdProduct(idclient, idtype, idproduct);
+  }
+
+  @GetMapping("/products/{idClient}/{idType}/{idProduct}/{numberCuent}")
+  public Mono<CreditDTO> getListByIdClient(@PathVariable String idClient,
+                                           @PathVariable String idType,
+                                           @PathVariable String idProduct,
+                                           @PathVariable String numberCuent) {
+    return this.creditService.getListCreditAll(idClient, idType, idProduct, numberCuent);
   }
 
 }

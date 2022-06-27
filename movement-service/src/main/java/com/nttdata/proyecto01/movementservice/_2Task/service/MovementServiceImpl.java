@@ -44,9 +44,9 @@ public class MovementServiceImpl implements MovementService {
     }
 
     @Override
-    public Mono<CreditDTO> getListCredit(String idClient,String idType, String idProduct) {
+    public Mono<CreditDTO> getListCredit(String idClient,String idType, String idProduct, String numberCuent) {
         Mono<CreditDTO> creditDTOMono=_webClientBuilder.build()
-                .get().uri("http://localhost:9004/credit/products/"+idClient+"/"+idType + "/"+idProduct)
+                .get().uri("http://localhost:9004/credit/products/"+idClient+"/"+idType + "/"+idProduct + "/" + numberCuent)
                 .retrieve().bodyToMono(CreditDTO.class);
         creditDTOMono.subscribe(c->{
             System.out.println("Codigo"+c.getId() +"Client" + c.getIdClient()+"type"+c.getIdType() +"product" + c.getIdProduct());
@@ -54,5 +54,15 @@ public class MovementServiceImpl implements MovementService {
 
 
         return creditDTOMono;
+    }
+
+    @Override
+    public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto) {
+            return _webClientBuilder.build()
+                .post().uri("http://localhost:9004/credit/deposit")
+                .body(creditDto, CreditDTO.class)
+                .retrieve()
+                .bodyToMono(CreditDTO.class);
+
     }
 }

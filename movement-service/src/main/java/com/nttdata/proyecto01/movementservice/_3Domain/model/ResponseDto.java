@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreditDTO {
-    private String id;
-    private String idClient;
-    private String idType;
-    private String idProduct;
-    private String numberCuent;
-    private float balance;
+public class ResponseDto {
+  private String status;
+  private String msg;
+  private MovementDTO movementDto;
 }
