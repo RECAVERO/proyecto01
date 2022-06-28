@@ -12,5 +12,7 @@ public interface MovementService {
     Mono<MovementDTO> updateMovement(Mono<MovementDTO> movementDTOMono, String id);
     Mono<Void> deleteMovementById(String id);
     Mono<CreditDTO> getListCredit(String idClient,String idType, String idProduct, String numberCuent);
-    Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto);
+    Mono<CreditDTO> updateCreditDeposit(Mono<CreditDTO> creditDto);
+    Mono<CreditDTO> updateCreditWithdrawal(Mono<CreditDTO> creditDto);
+    Flux<MovementDTO> getListRecordMovement(String idClient, String numberCuent);
 }

@@ -57,12 +57,28 @@ public class MovementServiceImpl implements MovementService {
     }
 
     @Override
-    public Mono<CreditDTO> updateCredit(Mono<CreditDTO> creditDto) {
+    public Mono<CreditDTO> updateCreditDeposit(Mono<CreditDTO> creditDto) {
+        return creditDto.flatMap(credi->{
+                return _webClientBuilder.build()
+                    .post().uri("http://localhost:9004/credit/deposit")
+                    .body(creditDto, CreditDTO.class)
+                    .retrieve()
+                    .bodyToMono(CreditDTO.class);
+        });
+    }
+    @Override
+    public Mono<CreditDTO> updateCreditWithdrawal(Mono<CreditDTO> creditDto) {
+        return creditDto.flatMap(credi->{
             return _webClientBuilder.build()
-                .post().uri("http://localhost:9004/credit/deposit")
+                .post().uri("http://localhost:9004/credit/withdrawal")
                 .body(creditDto, CreditDTO.class)
                 .retrieve()
                 .bodyToMono(CreditDTO.class);
+        });
+    }
 
+    @Override
+    public Flux<MovementDTO> getListRecordMovement(String idClient, String numberCuent) {
+        return _movementRepository.getListRecordMovement(idClient,numberCuent);
     }
 }

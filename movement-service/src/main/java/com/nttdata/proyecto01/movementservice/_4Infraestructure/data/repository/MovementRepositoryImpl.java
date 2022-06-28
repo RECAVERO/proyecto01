@@ -46,5 +46,10 @@ public class MovementRepositoryImpl implements MovementRepository {
     public Mono<Void> deleteMovementById(String id) {
         return _movementRepositoryMongoDB.deleteById(id);
     }
-    
+
+    @Override
+    public Flux<MovementDTO> getListRecordMovement(String idClient, String numberCuent) {
+        return _movementRepositoryMongoDB.findByIdClientAndNumberCuent(idClient,numberCuent);
+    }
+
 }

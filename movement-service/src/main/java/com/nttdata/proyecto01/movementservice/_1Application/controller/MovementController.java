@@ -28,6 +28,12 @@ public class MovementController {
   public Mono<MovementDTO> getMovementById(@PathVariable String id){
     return _movementService.getMovementById(id);
   }
+  @GetMapping("/record/{idClient}/{numberCuent}")
+  public Flux<MovementDTO> recordMovement(@PathVariable String idClient,
+                                                  @PathVariable String numberCuent){
+    return this._movementService.getListRecordMovement(idClient,numberCuent);
+  }
+
   @PostMapping("/deposit")
   public Mono<Map<String, Object>> depositMovement(@RequestBody Mono<MovementDTO> movementDto){
     Map<String, Object> result=new HashMap<>();
@@ -47,7 +53,7 @@ public class MovementController {
             cred.setIdProduct(c.getIdProduct());
             cred.setNumberCuent(c.getNumberCuent());
             cred.setBalance(movement.getAmount());
-            return _movementService.updateCredit(Mono.just(cred)).flatMap(credit->{
+            return _movementService.updateCreditDeposit(Mono.just(cred)).flatMap(credit->{
               return _movementService.saveMovement(Mono.just(movement)).flatMap(h->{
                 responseDto.setStatus(HttpStatus.CREATED.toString());
                 responseDto.setMsg("Se Registro Correctamente");
@@ -55,22 +61,51 @@ public class MovementController {
                 result.put("Data",responseDto);
                 return Mono.just(result);
               });
-              /*responseDto.setStatus(HttpStatus.CREATED.toString());
-              responseDto.setMsg("Se Registro Correctamente");
-              responseDto.setCredit(credit);
-              result.put("Data",responseDto);
-              return Mono.just(result);*/
             });
 
           }
       });
     });
   }
+  @PostMapping("/withdrawal")
+  public Mono<Map<String, Object>> withdrawalMovement(@RequestBody Mono<MovementDTO> movementDto){
+    Map<String, Object> result=new HashMap<>();
+    return movementDto.flatMap(movement->{
+      return _movementService.getListCredit(movement.getIdClient(),movement.getIdType(),movement.getIdProduct(),movement.getNumberCuent()).flatMap(c->{
+        ResponseDto responseDto = new ResponseDto();
+        if(c.getId() == null){
+          responseDto.setStatus(HttpStatus.NOT_FOUND.toString());
+          responseDto.setMsg("No Hay registros con es criterio de busqueda");
+          result.put("Data",responseDto);
+          return Mono.just(result);
+        }else{
+          CreditDTO cred=new CreditDTO();
+          cred.setId(c.getId());
+          cred.setIdClient(c.getIdClient());
+          cred.setIdType(c.getIdType());
+          cred.setIdProduct(c.getIdProduct());
+          cred.setNumberCuent(c.getNumberCuent());
+          cred.setBalance(movement.getAmount());
+          return _movementService.updateCreditWithdrawal(Mono.just(cred)).flatMap(credit->{
+            return _movementService.saveMovement(Mono.just(movement)).flatMap(h->{
+              responseDto.setStatus(HttpStatus.CREATED.toString());
+              responseDto.setMsg("Se Registro Correctamente");
+              responseDto.setMovementDto(h);
+              result.put("Data",responseDto);
+              return Mono.just(result);
+            });
+          });
 
+        }
+      });
+    });
+  }
+  /*
   @PostMapping("/withdrawal")
   public Mono<MovementDTO> withdrawalMovement(@RequestBody Mono<MovementDTO> movementDTOMono){
     return _movementService.saveMovement(movementDTOMono);
   }
+   */
   @PutMapping("/{id}")
   public Mono<MovementDTO> updateMovement(@RequestBody Mono<MovementDTO> movementDTOMono,@PathVariable String id){
     return _movementService.updateMovement(movementDTOMono,id);

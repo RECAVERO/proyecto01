@@ -76,7 +76,8 @@ public class CreditRepositoryImpl implements CreditRepository {
   public Mono<CreditDTO> getListCreditByIdClientAndIdTypeAndIdProduct(String idClient,
                                                                       String idType, String idProduct) {
 
-    return creditRepository.findByIdClientAndIdTypeAndIdProduct(idClient, idType, idProduct);
+    return creditRepository.findByIdClientAndIdTypeAndIdProduct(idClient, idType, idProduct)
+        .defaultIfEmpty(new CreditDTO());
 
   }
 

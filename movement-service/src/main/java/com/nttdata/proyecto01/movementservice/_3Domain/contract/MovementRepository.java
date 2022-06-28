@@ -11,7 +11,5 @@ public interface MovementRepository {
     Mono<MovementDTO> saveMovement(Mono<MovementDTO> movementDTOMono);
     Mono<MovementDTO> updateMovement(Mono<MovementDTO> movementDTOMono, String id);
     Mono<Void> deleteMovementById(String id);
-
-    //Mono<MovementDTO> saveMovementrecharge(Mono<MovementDTO> movementDTOMono);
-    //Mono<MovementDTO> saveMovementwithdrawal(Mono<MovementDTO> movementDTOMono);
+    Flux<MovementDTO> getListRecordMovement(String idClient, String numberCuent);
 }
