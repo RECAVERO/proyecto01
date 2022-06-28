@@ -4,6 +4,9 @@ import com.nttdata.proyecto01.clientservice.domain.models.ClientDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * interface que tiene los metodos  funcionales del servicio.
+ */
 
 public interface ClientService {
   Flux<ClientDto> findAllClient();

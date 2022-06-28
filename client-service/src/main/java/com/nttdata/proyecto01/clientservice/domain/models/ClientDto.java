@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase auxiliar de un documento; para la transferencia de datos.
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

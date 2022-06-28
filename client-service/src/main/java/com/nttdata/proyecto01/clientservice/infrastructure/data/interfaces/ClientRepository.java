@@ -4,6 +4,10 @@ import com.nttdata.proyecto01.clientservice.domain.models.ClientDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * interface que tiene los metodos funcionales de repository y que interactua con mongodb.
+ */
+
 public interface ClientRepository {
 
   Flux<ClientDto> findAllClient();

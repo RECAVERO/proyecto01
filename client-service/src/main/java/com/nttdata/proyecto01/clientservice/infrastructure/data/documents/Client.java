@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Clase que contiene las columnas de los documentos de la base.
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

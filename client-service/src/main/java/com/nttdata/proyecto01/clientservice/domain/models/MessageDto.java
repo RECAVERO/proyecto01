@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase Auxiliar que obtiene los datos para mostrarlos al cliente.
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -17,9 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ *  ClientController tiene los empoints crud.
+ */
+
 @RestController
 @RequestMapping("/client")
 public class ClientController {
+
   private final ClientService clientService;
 
   public ClientController(ClientService clientService) {
@@ -30,6 +35,13 @@ public class ClientController {
   public Flux<ClientDto> getListClient() {
     return this.clientService.findAllClient();
   }
+
+  /**
+   * Metodo Principal.
+   *
+   * @param id parametro de busqueda por id generado unico.
+   * @return Object con la lista de client.
+   */
 
   @GetMapping("/{id}")
   public Mono<Map<String, Object>> getListClient(@PathVariable String id) {

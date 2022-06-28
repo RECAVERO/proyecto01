@@ -8,6 +8,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Clase que implementa los servicio y conecta con la capa infraestructure.
+ */
+
 @Service
 public class ClientServiceImpl implements ClientService {
 
