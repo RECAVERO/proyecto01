@@ -4,6 +4,7 @@ import com.nttdata.proyecto01.movementservice._2Task.interfaces.MovementService;
 import com.nttdata.proyecto01.movementservice._3Domain.model.CreditDTO;
 import com.nttdata.proyecto01.movementservice._3Domain.model.MovementDTO;
 import com.nttdata.proyecto01.movementservice._3Domain.model.ResponseDto;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -34,6 +35,7 @@ public class MovementController {
     return this._movementService.getListRecordMovement(idClient,numberCuent);
   }
 
+  @CircuitBreaker(name="creditDeposit",fallbackMethod = "fallBackDepositMovement")
   @PostMapping("/deposit")
   public Mono<Map<String, Object>> depositMovement(@RequestBody Mono<MovementDTO> movementDto){
     Map<String, Object> result=new HashMap<>();
@@ -67,6 +69,8 @@ public class MovementController {
       });
     });
   }
+
+  @CircuitBreaker(name="creditWithdrawal",fallbackMethod = "fallBackWithdrawalMovement")
   @PostMapping("/withdrawal")
   public Mono<Map<String, Object>> withdrawalMovement(@RequestBody Mono<MovementDTO> movementDto){
     Map<String, Object> result=new HashMap<>();
@@ -100,12 +104,7 @@ public class MovementController {
       });
     });
   }
-  /*
-  @PostMapping("/withdrawal")
-  public Mono<MovementDTO> withdrawalMovement(@RequestBody Mono<MovementDTO> movementDTOMono){
-    return _movementService.saveMovement(movementDTOMono);
-  }
-   */
+
   @PutMapping("/{id}")
   public Mono<MovementDTO> updateMovement(@RequestBody Mono<MovementDTO> movementDTOMono,@PathVariable String id){
     return _movementService.updateMovement(movementDTOMono,id);
@@ -115,12 +114,24 @@ public class MovementController {
   public Mono<Void> deleteMovementById(@PathVariable String id){
     return _movementService.deleteMovementById(id);
   }
-  /*@GetMapping("/operation/{idclient}/{idtype}/{idproduct}")
-  public Mono<CreditDTO> getListProducts(@PathVariable String idclient,@PathVariable String idtype,@PathVariable String idproduct){
-    return _movementService.getListCredit(idclient,idtype,idproduct);
+
+  public Mono<Map<String, Object>> fallBackDepositMovement(@RequestBody Mono<MovementDTO> movementDto,RuntimeException e){
+    Map<String, Object> result=new HashMap<>();
+    ResponseDto responseDto = new ResponseDto();
+    responseDto.setStatus(HttpStatus.NOT_FOUND.toString());
+    responseDto.setMsg("No se puede hacer depositos; porque el servicio no esta disponible por el momento");
+    result.put("Datasource",responseDto);
+    return Mono.just(result);
   }
 
-   */
+  public Mono<Map<String, Object>> fallBackWithdrawalMovement(@RequestBody Mono<MovementDTO> movementDto,RuntimeException e){
+    Map<String, Object> result=new HashMap<>();
+    ResponseDto responseDto = new ResponseDto();
+    responseDto.setStatus(HttpStatus.NOT_FOUND.toString());
+    responseDto.setMsg("No se puede hacer retiros; porque el servicio no esta disponible por el momento");
+    result.put("Datasource",responseDto);
+    return Mono.just(result);
+  }
 
 
 }
