@@ -4,3 +4,7 @@ eureka:
     client:
         fetch-registry: false
         register-with-eureka: false
+
+    instance:
+        hostname: eureka-service
+        prefer-ip-address: true
